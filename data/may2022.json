@@ -1,0 +1,400 @@
+{
+    "games": [
+      {
+        "id": 0,
+        "teams": {
+          "home": "Boston Celtics",
+          "away": "Philadelphia 76ers"
+        },
+        "points": {
+          "home": 115,
+          "away": 119
+        },
+        "totalScore": 234
+      },
+      {
+        "id": 1,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Phoenix Suns"
+        },
+        "points": {
+          "home": 97,
+          "away": 87
+        },
+        "totalScore": 184
+      },
+      {
+        "id": 2,
+        "teams": {
+          "home": "New York Knicks",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 111,
+          "away": 105
+        },
+        "totalScore": 216
+      },
+      {
+        "id": 3,
+        "teams": {
+          "home": "Golden State Warriors",
+          "away": "Los Angeles Lakers"
+        },
+        "points": {
+          "home": 112,
+          "away": 117
+        },
+        "totalScore": 229
+      },
+      {
+        "id": 4,
+        "teams": {
+          "home": "Boston Celtics",
+          "away": "Philadelphia 76ers"
+        },
+        "points": {
+          "home": 121,
+          "away": 87
+        },
+        "totalScore": 208
+      },
+      {
+        "id": 5,
+        "teams": {
+          "home": "Golden State Warriors",
+          "away": "Los Angeles Lakers"
+        },
+        "points": {
+          "home": 127,
+          "away": 100
+        },
+        "totalScore": 227
+      },
+      {
+        "id": 6,
+        "teams": {
+          "home": "Philadelphia 76ers",
+          "away": "Boston Celtics"
+        },
+        "points": {
+          "home": 102,
+          "away": 114
+        },
+        "totalScore": 216
+      },
+      {
+        "id": 7,
+        "teams": {
+          "home": "Phoenix Suns",
+          "away": "Denver Nuggets"
+        },
+        "points": {
+          "home": 121,
+          "away": 114
+        },
+        "totalScore": 235
+      },
+      {
+        "id": 8,
+        "teams": {
+          "home": "Miami Heat",
+          "away": "New York Knicks"
+        },
+        "points": {
+          "home": 105,
+          "away": 86
+        },
+        "totalScore": 191
+      },
+      {
+        "id": 9,
+        "teams": {
+          "home": "Los Angeles Lakers",
+          "away": "Golden State Warriors"
+        },
+        "points": {
+          "home": 127,
+          "away": 97
+        },
+        "totalScore": 224
+      },
+      {
+        "id": 10,
+        "teams": {
+          "home": "Philadelphia 76ers",
+          "away": "Boston Celtics"
+        },
+        "points": {
+          "home": 116,
+          "away": 95
+        },
+        "totalScore": 211
+      },
+      {
+        "id": 11,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Phoenix Suns"
+        },
+        "points": {
+          "home": 100,
+          "away": 125
+        },
+        "totalScore": 225
+      },
+      {
+        "id": 12,
+        "teams": {
+          "home": "New York Knicks",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 101,
+          "away": 109
+        },
+        "totalScore": 210
+      },
+      {
+        "id": 13,
+        "teams": {
+          "home": "Los Angeles Lakers",
+          "away": "Golden State Warriors"
+        },
+        "points": {
+          "home": 104,
+          "away": 101
+        },
+        "totalScore": 205
+      },
+      {
+        "id": 14,
+        "teams": {
+          "home": "Boston Celtics",
+          "away": "Philadelphia 76ers"
+        },
+        "points": {
+          "home": 86,
+          "away": 95
+        },
+        "totalScore": 181
+      },
+      {
+        "id": 15,
+        "teams": {
+          "home": "Phoenix Suns",
+          "away": "Denver Nuggets"
+        },
+        "points": {
+          "home": 118,
+          "away": 102
+        },
+        "totalScore": 220
+      },
+      {
+        "id": 16,
+        "teams": {
+          "home": "Miami Heat",
+          "away": "New York Knicks"
+        },
+        "points": {
+          "home": 112,
+          "away": 103
+        },
+        "totalScore": 215
+      },
+      {
+        "id": 17,
+        "teams": {
+          "home": "Los Angeles Lakers",
+          "away": "Golden State Warriors"
+        },
+        "points": {
+          "home": 121,
+          "away": 106
+        },
+        "totalScore": 227
+      },
+      {
+        "id": 18,
+        "teams": {
+          "home": "Philadelphia 76ers",
+          "away": "Boston Celtics"
+        },
+        "points": {
+          "home": 103,
+          "away": 115
+        },
+        "totalScore": 218
+      },
+      {
+        "id": 19,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Phoenix Suns"
+        },
+        "points": {
+          "home": 100,
+          "away": 125
+        },
+        "totalScore": 225
+      },
+      {
+        "id": 20,
+        "teams": {
+          "home": "New York Knicks",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 96,
+          "away": 92
+        },
+        "totalScore": 188
+      },
+      {
+        "id": 21,
+        "teams": {
+          "home": "Golden State Warriors",
+          "away": "Los Angeles Lakers"
+        },
+        "points": {
+          "home": 122,
+          "away": 101
+        },
+        "totalScore": 223
+      },
+      {
+        "id": 22,
+        "teams": {
+          "home": "Philadelphia 76ers",
+          "away": "Boston Celtics"
+        },
+        "points": {
+          "home": 112,
+          "away": 88
+        },
+        "totalScore": 200
+      },
+      {
+        "id": 23,
+        "teams": {
+          "home": "Los Angeles Lakers",
+          "away": "Denver Nuggets"
+        },
+        "points": {
+          "home": 132,
+          "away": 126
+        },
+        "totalScore": 258
+      },
+      {
+        "id": 24,
+        "teams": {
+          "home": "Boston Celtics",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 116,
+          "away": 123
+        },
+        "totalScore": 239
+      },
+      {
+        "id": 25,
+        "teams": {
+          "home": "Los Angeles Lakers",
+          "away": "Denver Nuggets"
+        },
+        "points": {
+          "home": 108,
+          "away": 103
+        },
+        "totalScore": 211
+      },
+      {
+        "id": 26,
+        "teams": {
+          "home": "Boston Celtics",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 105,
+          "away": 111
+        },
+        "totalScore": 216
+      },
+      {
+        "id": 27,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Los Angeles Lakers"
+        },
+        "points": {
+          "home": 108,
+          "away": 119
+        },
+        "totalScore": 227
+      },
+      {
+        "id": 28,
+        "teams": {
+          "home": "Boston Celtics",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 112,
+          "away": 97
+        },
+        "totalScore": 209
+      },
+      {
+        "id": 29,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Los Angeles Lakers"
+        },
+        "points": {
+          "home": 99,
+          "away": 103
+        },
+        "totalScore": 202
+      },
+      {
+        "id": 30,
+        "teams": {
+          "home": "Boston Celtics",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 110,
+          "away": 97
+        },
+        "totalScore": 207
+      },
+      {
+        "id": 31,
+        "teams": {
+          "home": "Miami Heat",
+          "away": "Boston Celtics"
+        },
+        "points": {
+          "home": 103,
+          "away": 84
+        },
+        "totalScore": 187
+      },
+      {
+        "id": 32,
+        "teams": {
+            "home": "Boston Celtics",
+            "away": "Philadelphia 76ers"
+        },
+        "points": {
+            "home": 102,
+            "away": 94
+        },
+        "totalScore": 196
+    }
+    ]
+  }

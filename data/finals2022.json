@@ -1,0 +1,64 @@
+{
+    "games": [
+      {
+        "id": 0,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 93,
+          "away": 104
+        },
+        "totalScore": 197
+      },
+      {
+        "id": 1,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 111,
+          "away": 108
+        },
+        "totalScore": 219
+      },
+      {
+        "id": 2,
+        "teams": {
+          "home": "Miami Heat",
+          "away": "Denver Nuggets"
+        },
+        "points": {
+          "home": 94,
+          "away": 109
+        },
+        "totalScore": 203
+      },
+      {
+        "id": 3,
+        "teams": {
+          "home": "Miami Heat",
+          "away": "Denver Nuggets"
+        },
+        "points": {
+          "home": 95,
+          "away": 108
+        },
+        "totalScore": 203
+      },
+      {
+        "id": 4,
+        "teams": {
+          "home": "Denver Nuggets",
+          "away": "Miami Heat"
+        },
+        "points": {
+          "home": 94,
+          "away": 89
+        },
+        "totalScore": 183
+      }
+    ]
+  }
