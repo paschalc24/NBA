@@ -3,9 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import winston from 'winston';
 import fs from 'fs';
-
-// To use logger, add to endpoints:
-// logger.info(`Get request for book: ${req.params.id}`);
+import stats from 'statistics';
 
 const logger = winston.createLogger({
     level: 'info',
@@ -38,6 +36,35 @@ app.get('/gamesbyteam/:teamname', async (req, res) => {
                 return home.includes(teamName) || away.includes(teamName) 
             })
         res.json(games)
+    }
+    catch (err) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+app.get('/pointsStats/:teamname', async (req, res) => {
+    try {
+        logger.info(`Get request for points: ${req.params.teamname}`);
+        const data = await fs.promises.readFile('./data/april2022.json', 'utf8');
+        let games = JSON.parse(data).games;
+        const teamName = req.params.teamname.toLowerCase()
+        games = games.filter(e => {
+                const home = e.teams.home.toLowerCase()
+                const away = e.teams.away.toLowerCase()
+                return home.includes(teamName) || away.includes(teamName) 
+            })
+        let result = []
+        for (let game of games) {
+            const home = game.teams.home.toLowerCase()
+            const away = game.teams.away.toLowerCase()
+            if (home.includes(teamName)) {
+                result.push(game.points.home)
+            }
+            else if (away.includes(teamName)) {
+                result.push(game.points.away)
+            }
+        }
+        res.send(result.reduce(stats))
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
