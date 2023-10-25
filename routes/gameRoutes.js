@@ -29,7 +29,7 @@ gamesRouter.get('/gamesbyteam/:teamname', async (req, res) => {
                 const away = e.teams.away.toLowerCase()
                 return home.includes(teamName) || away.includes(teamName) 
             })
-        res.json(games)
+        res.status(200).json(games)
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -58,7 +58,7 @@ gamesRouter.get('/pointsStats/:teamname', async (req, res) => {
                 result.push(game.points.away)
             }
         }
-        res.send(result.reduce(stats))
+        res.status(200).send(result.reduce(stats))
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -106,7 +106,7 @@ gamesRouter.get('/monteCarlo/:team1/:team2/:numSims', async (req, res) => {
         }
         const team1stats = team1points.reduce(stats)
         const team2stats = team2points.reduce(stats)
-        res.json(monteCarlo({mean: team1stats.mean, stdev:team1stats.stdev}, {mean: team2stats.mean, stdev:team2stats.stdev}, parseInt(req.params.numSims)))
+        res.status(200).json(monteCarlo({mean: team1stats.mean, stdev:team1stats.stdev}, {mean: team2stats.mean, stdev:team2stats.stdev}, parseInt(req.params.numSims)))
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -119,7 +119,7 @@ gamesRouter.get('/all', async (req, res) => {
         const data = await fs.promises.readFile('./data/april2022.json', 'utf8');
         console.log('here')
         let games = JSON.parse(data).games;
-        res.json(games)
+        res.status(200).json(games)
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -133,7 +133,7 @@ gamesRouter.get('/:id', async (req, res) => {
         let games = JSON.parse(data).games;
         const id = parseInt(req.params.id)
         games = games.filter(e => e.id === id)
-        res.json(games)
+        res.status(200).json(games)
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
