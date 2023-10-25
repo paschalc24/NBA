@@ -2,6 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import stats from 'statistics';
 import winston from 'winston';
+import monteCarlo from '../modules/monteCarlo.js';
 
 const gamesRouter = express.Router();
 
@@ -58,6 +59,54 @@ gamesRouter.get('/pointsStats/:teamname', async (req, res) => {
             }
         }
         res.send(result.reduce(stats))
+    }
+    catch (err) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+gamesRouter.get('/monteCarlo/:team1/:team2/:numSims', async (req, res) => {
+    try {
+        logger.info(`Get request for Monte Carlo Simulation: team1: ${req.params.team1} team2: ${req.params.team2} numSims: ${req.params.numSims}`);
+        const data = await fs.promises.readFile('./data/april2022.json', 'utf8');
+        const games = JSON.parse(data).games;
+        const team1 = req.params.team1.toLowerCase()
+        const team2 = req.params.team2.toLowerCase()
+        let team1games = games.filter(e => {
+                const home = e.teams.home.toLowerCase()
+                const away = e.teams.away.toLowerCase()
+                return home.includes(team1) || away.includes(team1) 
+            })
+        let team2games = games.filter(e => {
+            const home = e.teams.home.toLowerCase()
+            const away = e.teams.away.toLowerCase()
+            return home.includes(team2) || away.includes(team2) 
+        })    
+        let team1points = []
+        let team2points = []
+        for (let game of team1games) {
+            const home = game.teams.home.toLowerCase()
+            const away = game.teams.away.toLowerCase()
+            if (home.includes(team1)) {
+                team1points.push(game.points.home)
+            }
+            else if (away.includes(team1)) {
+                team1points.push(game.points.away)
+            }
+        }
+        for (let game of team2games) {
+            const home = game.teams.home.toLowerCase()
+            const away = game.teams.away.toLowerCase()
+            if (home.includes(team2)) {
+                team2points.push(game.points.home)
+            }
+            else if (away.includes(team2)) {
+                team2points.push(game.points.away)
+            }
+        }
+        const team1stats = team1points.reduce(stats)
+        const team2stats = team2points.reduce(stats)
+        res.json(monteCarlo({mean: team1stats.mean, stdev:team1stats.stdev}, {mean: team2stats.mean, stdev:team2stats.stdev}, parseInt(req.params.numSims)))
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
