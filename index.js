@@ -2,11 +2,13 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import gamesRouter from './routes/gameRoutes.js';
+import authenticationMiddleware from './modules/authentication.js';
 
 const app = express()
 app.use(helmet())
 app.use(morgan('tiny'))
 app.use(express.json())
+app.use(authenticationMiddleware)
 
 const port = process.env.PORT || 3000;
 
