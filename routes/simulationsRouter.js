@@ -42,7 +42,12 @@ simulationsRouter.get('/:id', async (req, res) => {
             let sims = JSON.parse(data).sims;
             const id = req.params.id;
             sims = sims.filter(e => e.id === id);
-            res.status(200).json(sims);
+            if (sims.length === 0) {
+                res.status(404).json({error: 'Resource Not Found'});
+            }
+            else {
+                res.status(200).json(sims);
+            }
         }
         catch (err) {
             res.status(500).json({ error: 'Internal Server Error' });
