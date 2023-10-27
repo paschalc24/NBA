@@ -51,7 +51,7 @@ simulationsRouter.get('/:id', async (req, res) => {
 })
 
 simulationsRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => {
-    logger.info(`Get request for Monte Carlo Simulation: team1: ${req.params.team1} team2: ${req.params.team2}`);
+    logger.info(`Get request for mvLinearRegression: team1: ${req.params.team1} team2: ${req.params.team2}`);
     if (typeof(req?.params?.team1) !== 'string'
     || typeof(req?.params?.team1) !== 'string') {
         res.status(400).json({error: 'Bad Request'});
@@ -80,7 +80,7 @@ simulationsRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => 
 })
 
 simulationsRouter.put('/:id', async (req, res) => {
-    logger.info(`Put request for game with id: ${req.params.id} ${JSON.stringify(req.body)}`);
+    logger.info(`Put request for simulation with id: ${req.params.id} ${JSON.stringify(req.body)}`);
     if (typeof(req?.params?.id) !== 'string') {
         res.status(400).json({error: 'Bad Request'});
     }
@@ -107,7 +107,7 @@ simulationsRouter.put('/:id', async (req, res) => {
 });
 
 simulationsRouter.delete('/:id', async (req, res) => {
-    logger.info(`Delete request for game: ${JSON.stringify(req.params.id)}`);
+    logger.info(`Delete request for simulation: ${JSON.stringify(req.params.id)}`);
     if (typeof(req?.params?.id) !== 'string') {
         res.status(400).json({error: 'Bad Request'});
     }
