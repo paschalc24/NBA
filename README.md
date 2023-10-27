@@ -3,34 +3,32 @@
 
 ## Overview
 
-This API allows you to retrieve information about NBA games and perform various operations related to these games. It provides endpoints for retrieving game data by team, accessing game statistics, running Monte Carlo simulations, and performing CRUD operations on game records.
+This API allows you to perform various operations related to NBA simulations. It provides endpoints for retrieving simulation data, running simulations, updating simulation results, and deleting simulations. Simulations at the moment are simply key value pairs of team names and their predicted scores. These scores are reached through multivariate linear regression. This application currently uses 3PM, 3P%, FT%, DRB, and BL as independent variables and PTS as a dependent variable. 
 
 ## To Get Started and Run Server
 
-1. `git clone https://github.com/paschalc24/NBA`
+1. Clone the repository: `git clone https://github.com/paschalc24/NBA`
 
-2. `npm install`
+2. Install dependencies: `npm install`
 
-3. `npm run dev`
+3. Start the development server: `npm run dev`
 
 ### Base URL
 
-`https://example.com/games/`
+The base URL for the API is `https://example.com/simulations/`.
 
 ## Endpoints
 
-### 1. Get Games by Team
+### 1. Get All Simulations
 
-Retrieve a list of games for a specific team.
+Retrieve a list of all simulation data.
 
-- **Endpoint:** `/games/gamesbyteam/:teamname`
+- **Endpoint:** `/simulations/all`
 - **Method:** GET
-- **Parameters:**
-  - `teamname` (string): The name of the team for which you want to retrieve games.
 
 **Request:**
 
-`GET /games/gamesbyteam/:teamname`
+`GET /simulations/all`
 
 **Response**
 
@@ -41,34 +39,31 @@ Retrieve a list of games for a specific team.
 ***Response Example:***
 
 ```
+[
   {
-    "id": 24,
-    "teams": {
-      "home": "Philadelphia 76ers",
-      "away": "Boston Celtics"
-    },
-    "points": {
-      "home": 103,
-      "away": 101
-    },
-    "totalScore": 204
-  },
+    "id": "2960662e-f119-4149-b947-f91fad9c0962",
+    "trailblazers": [
+      113.40243902439131
+    ],
+    "jazz": [
+      117.07317073170455
+    ]
+  }
+]
 ```
 
----
+### 2. Get Simulation by ID
 
-### 2. Get Points Statistics for a Team
+Retrieve a specific simulation by its ID.
 
-Retrieve statistics (mean, standard deviation, count, sum, sqsum) of points scored by a specific team.
-
-- **Endpoint:** `/games/pointsStats/:teamname`
+- **Endpoint:** `/simulations/:id`
 - **Method:** GET
 - **Parameters:**
-  - `teamname` (string): The name of the team for which you want to calculate statistics.
+  - `id` (string): The unique ID of the simulation.
 
 **Request:**
 
-`GET /games/pointsStats/:teamname`
+`GET /simulations/:id`
 
 **Response**
 
@@ -79,32 +74,33 @@ Retrieve statistics (mean, standard deviation, count, sum, sqsum) of points scor
 ***Response Example:***
 
 ```
-{
-  "mean": 112.83333333333333,
-  "stdev": 8.454124568648398,
-  "count": 6,
-  "sum": 677,
-  "sqsum": 76817
-}
+[
+  {
+    "id": "14b6015f-b5f2-44c8-b37a-5cb9b4a81064",
+    "raptors": [
+      112.85365853658843
+    ],
+    "jazz": [
+      117.07317073170455
+    ]
+  }
+]
 ```
 
----
+### 3. Run Multivariate Linear Regression Simulation
 
-### 3. Run Monte Carlo Simulation
+Run a Multivariate Linear Regression simulation for two teams.
 
-Run a Monte Carlo simulation to compare two teams' performance.
-
-- **Endpoint:** `/games/monteCarlo/:team1/:team2/:numSims`
-- **Method:** GET
+- **Endpoint:** `/simulations/mvLinearRegression/:team1/:team2`
+- **Method:** POST
 - **Parameters:**
   - `team1` (string): The name of the first team.
   - `team2` (string): The name of the second team.
-  - `numSims` (integer): The number of simulation runs.
-
+  (hawks|celtics|nets|hornets|bulls|cavaliers|mavericks|nuggets|pistons|warriors|rockets|pacers|clippers|lakers|grizzlies|heat|bucks|timberwolves|pelicans|knicks|thunder|magic|sixers|suns|trailblazers|kings|spurs|raptors|jazz|wizards)
 
 **Request:**
 
-`GET /games/monteCarlo/:team1/:team2/:numSims`
+`POST /simulations/mvLinearRegression/:team1/:team2`
 
 **Response**
 
@@ -116,135 +112,40 @@ Run a Monte Carlo simulation to compare two teams' performance.
 
 ```
 {
-  "team1": 0,
-  "team2": 0.5472,
-  "tie": 0.4528,
-  "minScore": 82.05502227337698,
-  "maxScore": 366.9023731576316
+  "id": "2960662e-f119-4149-b947-f91fad9c0962",
+  "trailblazers": [
+    113.40243902439131
+  ],
+  "jazz": [
+    117.07317073170455
+  ]
 }
 ```
 
----
+### 4. Update Simulation
 
-### 4. Get All Games
+Update an existing simulation by its ID.
 
-Retrieve a list of all game objects in the data set.
-
-- **Endpoint:** `/games/all`
-- **Method:** GET
-
-**Request:**
-
-`GET /games/all`
-
-**Response**
-
-***Status Code: 200 OK***
-
-***Response Format: JSON***
-
----
-
-### 5. Get Game by ID
-
-Retrieve a specific game by its ID.
-
-- **Endpoint:** `/games/:id`
-- **Method:** GET
-- **Parameters:**
-  - `id` (integer): The unique ID of the game.
-
-**Request:**
-
-`GET /games/:id`
-
-**Response**
-
-***Status Code: 200 OK***
-
-***Response Format: JSON***
-
----
-
-### 6. Create a New Game
-
-Create a new game record.
-
-- **Endpoint:** `/games/`
-- **Method:** POST
-- **Request Body Format:** JSON
-
-**Request:**
-
-`POST /games/`
-
-**Example:**
-
-```
-{
-    "teams": {
-        "home": "Team X",
-        "away": "Team Y"
-    },
-    "points": {
-        "home": 80,
-        "away": 72
-    }
-    "totalScore": 152
-}
-```
-
-**Response**
-
-***Status Code: 200 OK***
-
-***Response Format: JSON***
-
-***Response Example:***
-
-```
-{
-    "id": 42,
-    "teams": {
-        "home": "Team X",
-        "away": "Team Y"
-    },
-    "points": {
-        "home": 80,
-        "away": 72
-    },
-    "totalScore": 152
-}
-```
-
----
-
-### 7. Update a Game
-
-Update an existing game by its ID.
-
-- **Endpoint:** `/games/:id`
+- **Endpoint:** `/simulations/:id`
 - **Method:** PUT
-- **Request Body Format:** JSON
+- **Parameters:**
+  - `id` (string): The unique ID of the simulation.
 
 **Request:**
 
-`PUT /games/:id`
+`PUT /simulations/:id`
 
-**Example:**
+***Request Example:***
 
 ```
 {
-  "teams": {
-    "home": "Update Test",
-    "away": "Update Test"
-  },
-  "points": {
-    "home": 129,
-    "away": 122
-  },
-  "totalScore": 251,
-  "id": 90
+    "id": "1f051c47-92f5-4900-964c-45543751eeb4",
+    "celtics": [
+        120
+    ],
+    "hawks": [
+        120
+    ]
 }
 ```
 
@@ -258,48 +159,35 @@ Update an existing game by its ID.
 
 ```
 {
-  "teams": {
-    "home": "Update Test",
-    "away": "Update Test"
-  },
-  "points": {
-    "home": 129,
-    "away": 122
-  },
-  "totalScore": 251,
-  "id": 90
+  "id": "1f051c47-92f5-4900-964c-45543751eeb4",
+  "celtics": [
+    120
+  ],
+  "hawks": [
+    120
+  ]
 }
 ```
 
----
+### 5. Delete Simulation
 
-### 8. Delete a Game
+Delete a simulation by its ID.
 
-Delete a game by its ID.
-
-- **Endpoint:** `/games/:id`
+- **Endpoint:** `/simulations/:id`
 - **Method:** DELETE
 - **Parameters:**
-  - `id` (integer): The unique ID of the game.
-
-**Request:**
-
-`DELETE /games/:id`
-
-**Response**
-
-***Status Code: 204 No Content***
-
-***Response Format: JSON***
+  - `id` (string): The unique ID of the simulation.
 
 ## Error Responses
 
-In case of errors, the API may return the following response:
+In case of errors, the API may return the following responses:
 
 - **Status Code 400:** Bad Request
-- **Status Code 405:** Not Found
+- **Status Code 404:** Not Found
 - **Status Code 500:** Internal Server Error
+
+- All simulation data is stored in the 'out.json' file.
 
 ## Notes
 
-- All endpoints are based on the april2022.json data file. In the future, I will expand to a larger data set and add more factors to the simulations.
+In the future, the factors used will be provided as optional parameters. This is the complete list of factors in the dataset:["WL", "MIN", "FGM", "FGA", "FG_PCT", "FG3M", "FG3A", "FG3_PCT", "FTM", "FTA", "FT_PCT", "OREB", "DREB", "REB", "AST", "TOV", "STL", "BLK", "BLKA", "PF", "PFD", "PTS", "PLUS_MINUS", "GP_RANK", "W_RANK", "L_RANK", "W_PCT_RANK", "MIN_RANK", "FGM_RANK", "FGA_RANK", "FG_PCT_RANK", "FG3M_RANK", "FG3A_RANK", "FG3_PCT_RANK", "FTM_RANK", "FTA_RANK", "FT_PCT_RANK", "OREB_RANK", "DREB_RANK", "REB_RANK", "AST_RANK", "TOV_RANK", "STL_RANK", "BLK_RANK", "BLKA_RANK", "PF_RANK", "PFD_RANK", "PTS_RANK", "PLUS_MINUS_RANK", "AVAILABLE_FLAG"] All data is pulled from `https://github.com/swar/nba_api`. Furthermore, after there is a reasonable data in the current season the data will dynamically be pulled from this season.
