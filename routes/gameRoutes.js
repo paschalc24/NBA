@@ -76,7 +76,7 @@ gamesRouter.get('/pointsStats/:teamname', async (req, res) => {
     }
 })
 
-gamesRouter.get('/mvLinearRegression/:team1/:team2', async (req, res) => {
+gamesRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => {
     logger.info(`Get request for Monte Carlo Simulation: team1: ${req.params.team1} team2: ${req.params.team2} numSims: ${req.params.numSims}`);
     if (typeof(req?.params?.team1) !== 'string'
     || typeof(req?.params?.team1) !== 'string') {
@@ -94,7 +94,7 @@ gamesRouter.get('/mvLinearRegression/:team1/:team2', async (req, res) => {
             const team2games = JSON.parse(team2data).rowSet
             const newSim = mvLinearRegression(team1games, team2games)
             const result = {id:uuidv4(),[team1]:newSim.p0,[team2]:newSim.p1}
-            gamesData.games.push(result);
+            gamesData.sims.push(result);
             await fs.promises.writeFile('./data/out.json', JSON.stringify(gamesData, null, 4), 'utf8');
             res.status(200).json(result)
         }

@@ -23,7 +23,7 @@ const fileMap = {
     "magic": "./data/OrlandoMagic2022-23.json",
     "sixers": "./data/Philadelphia76ers2022-23.json",
     "suns": "./data/PhoenixSuns2022-23.json",
-    "blazers": "./data/PortlandTrailBlazers2022-23.json",
+    "trailblazers": "./data/PortlandTrailBlazers2022-23.json",
     "kings": "./data/SacramentoKings2022-23.json",
     "spurs": "./data/SanAntonioSpurs2022-23.json",
     "raptors": "./data/TorontoRaptors2022-23.json",
