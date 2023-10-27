@@ -19,63 +19,6 @@ const logger = winston.createLogger({
     ]
 });
 
-gamesRouter.get('/gamesbyteam/:teamname', async (req, res) => {
-    logger.info(`Get request for games: ${req.params.teamname}`);
-    if (typeof(req?.params?.teamname) !== 'string') {
-        res.status(400).json({error: 'Bad Request'})
-    }
-    else{
-        try {
-            const data = await fs.promises.readFile('./data/april2022.json', 'utf8');
-            let games = JSON.parse(data).games;
-            const teamName = req.params.teamname.toLowerCase()
-            games = games.filter(e => {
-                    const home = e.teams.home.toLowerCase()
-                    const away = e.teams.away.toLowerCase()
-                    return home.includes(teamName) || away.includes(teamName) 
-                })
-            res.status(200).json(games)
-        }
-        catch (err) {
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
-})
-
-gamesRouter.get('/pointsStats/:teamname', async (req, res) => {
-    logger.info(`Get request for points: ${req.params.teamname}`);
-    if (typeof(req?.params?.teamname) !== 'string') {
-        res.status(400).json({error: 'Bad Request'})
-    }
-    else{
-        try {
-            const data = await fs.promises.readFile('./data/april2022.json', 'utf8');
-            let games = JSON.parse(data).games;
-            const teamName = req.params.teamname.toLowerCase()
-            games = games.filter(e => {
-                    const home = e.teams.home.toLowerCase()
-                    const away = e.teams.away.toLowerCase()
-                    return home.includes(teamName) || away.includes(teamName) 
-                })
-            let result = []
-            for (let game of games) {
-                const home = game.teams.home.toLowerCase()
-                const away = game.teams.away.toLowerCase()
-                if (home.includes(teamName)) {
-                    result.push(game.points.home)
-                }
-                else if (away.includes(teamName)) {
-                    result.push(game.points.away)
-                }
-            }
-            res.status(200).send(result.reduce(stats))
-        }
-        catch (err) {
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
-})
-
 gamesRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => {
     logger.info(`Get request for Monte Carlo Simulation: team1: ${req.params.team1} team2: ${req.params.team2} numSims: ${req.params.numSims}`);
     if (typeof(req?.params?.team1) !== 'string'
