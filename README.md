@@ -1,9 +1,9 @@
 # NBA
-🏀 Mock NBA Stats and Odds API
+🏀 NBA Game Simulation API
 
 ## Overview
 
-This API allows you to perform various operations related to NBA simulations. It provides endpoints for retrieving simulation data, running simulations, updating simulation results, and deleting simulations. Simulations at the moment are simply key value pairs of team names and their predicted scores. These scores are reached through multivariate linear regression. This application currently uses 3PM, 3P%, FT%, DRB, and BL as independent variables and PTS as a dependent variable. I used these specific parameters as they are specified in this PLOS journal as being the statistics that have the least consistency between regular and post-season competitive periods `https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273427#sec005`.
+This API allows you to perform various operations related to NBA simulations. It provides endpoints for retrieving simulation data, running simulations, updating simulation results, and deleting simulations. Simulations at the moment are simply key value pairs of team names and their predicted scores. These scores are reached through multivariate linear regression. This application currently uses 3PM, 3P%, FT%, DRB, and BL as independent variables and PTS as a dependent variable. I used these specific parameters as they are specified in this PLOS journal as being the statistics that have the greatest consistency between regular and post-season competitive periods `https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273427#sec005`.
 
 ## To Get Started and Run Server
 
