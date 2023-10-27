@@ -1,7 +1,7 @@
 {
   "name": "nba",
   "version": "1.0.0",
-  "description": "🏀 Mock NBA Stats and Odds API",
+  "description": "🏀 NBA Game Simulation API",
   "main": "index.js",
   "type": "module",
   "license": "AGPL-version-3.0",
