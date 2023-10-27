@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import gamesRouter from './routes/gameRoutes.js';
+import simulationsRouter from './routes/simulationsRouter.js';
 import authenticationMiddleware from './modules/authentication.js';
 import sanitizeURL from './modules/sanitizeURL.js';
 
@@ -14,7 +14,7 @@ app.use(sanitizeURL)
 
 const port = process.env.PORT || 3000;
 
-app.use('/games', gamesRouter)
+app.use('/simulations', simulationsRouter)
 
 app.listen(port, (err) => {
     if (!err) {
