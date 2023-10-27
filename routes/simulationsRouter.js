@@ -24,7 +24,7 @@ simulationsRouter.get('/all', async (req, res) => {
     try {
         const data = await fs.promises.readFile('./data/out.json', 'utf8');
         const sims = JSON.parse(data).sims;
-        res.status(200).json(sims)
+        res.status(200).json(sims);
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -34,15 +34,15 @@ simulationsRouter.get('/all', async (req, res) => {
 simulationsRouter.get('/:id', async (req, res) => {
     logger.info(`Get request for simulation with id: ${JSON.stringify(req.params.id)}`);
     if (typeof(req?.params?.id) !== 'string') {
-        res.status(400).json({error: 'Bad Request'})
+        res.status(400).json({error: 'Bad Request'});
     }
     else {
         try {
             const data = await fs.promises.readFile('./data/out.json', 'utf8');
             let sims = JSON.parse(data).sims;
-            const id = req.params.id
-            sims = sims.filter(e => e.id === id)
-            res.status(200).json(sims)
+            const id = req.params.id;
+            sims = sims.filter(e => e.id === id);
+            res.status(200).json(sims);
         }
         catch (err) {
             res.status(500).json({ error: 'Internal Server Error' });
@@ -51,26 +51,27 @@ simulationsRouter.get('/:id', async (req, res) => {
 })
 
 simulationsRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => {
-    logger.info(`Get request for Monte Carlo Simulation: team1: ${req.params.team1} team2: ${req.params.team2} numSims: ${req.params.numSims}`);
+    logger.info(`Get request for Monte Carlo Simulation: team1: ${req.params.team1} team2: ${req.params.team2}`);
     if (typeof(req?.params?.team1) !== 'string'
     || typeof(req?.params?.team1) !== 'string') {
-        res.status(400).json({error: 'Bad Request'})
+        res.status(400).json({error: 'Bad Request'});
     }
     else {
         try {
             const data = await fs.promises.readFile('./data/out.json', 'utf8');
             const simsData = JSON.parse(data);
-            const team1 = req.params.team1.toLowerCase()
-            const team2 = req.params.team2.toLowerCase()
+            const team1 = req.params.team1.toLowerCase();
+            const team2 = req.params.team2.toLowerCase();
             const team1data = await fs.promises.readFile(fileMap[team1], 'utf8');
             const team2data = await fs.promises.readFile(fileMap[team2], 'utf8');
-            const team1games = JSON.parse(team1data).rowSet
-            const team2games = JSON.parse(team2data).rowSet
-            const newSim = mvLinearRegression(team1games, team2games)
-            const result = {id:uuidv4(),[team1]:newSim.p0,[team2]:newSim.p1}
+            const team1games = JSON.parse(team1data).rowSet;
+            const team2games = JSON.parse(team2data).rowSet;
+            const newSim = mvLinearRegression(team1games, team2games);
+            const now = new Date().toISOString();
+            const result = {id:uuidv4(),created:now,[team1]:newSim.p0,[team2]:newSim.p1};
             simsData.sims.push(result);
             await fs.promises.writeFile('./data/out.json', JSON.stringify(simsData, null, 4), 'utf8');
-            res.status(200).json(result)
+            res.status(200).json(result);
         }
         catch (err) {
             res.status(500).json({ error: 'Internal Server Error' });
@@ -81,7 +82,7 @@ simulationsRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => 
 simulationsRouter.put('/:id', async (req, res) => {
     logger.info(`Put request for game with id: ${req.params.id} ${JSON.stringify(req.body)}`);
     if (typeof(req?.params?.id) !== 'string') {
-        res.status(400).json({error: 'Bad Request'})
+        res.status(400).json({error: 'Bad Request'});
     }
     else{
         try {
@@ -93,7 +94,9 @@ simulationsRouter.put('/:id', async (req, res) => {
                 res.status(404).json({ error: 'Simulation not found' });
             } else {
                 simsData.sims[simIndex] = generatedSim;
-                generatedSim.id = req.params.id
+                generatedSim.id = req.params.id;
+                const now = new Date().toISOString();
+                generatedSim.created = now;
                 await fs.promises.writeFile('./data/out.json', JSON.stringify(simsData, null, 4), 'utf8');
                 res.status(200).json(generatedSim);
             }
@@ -106,7 +109,7 @@ simulationsRouter.put('/:id', async (req, res) => {
 simulationsRouter.delete('/:id', async (req, res) => {
     logger.info(`Delete request for game: ${JSON.stringify(req.params.id)}`);
     if (typeof(req?.params?.id) !== 'string') {
-        res.status(400).json({error: 'Bad Request'})
+        res.status(400).json({error: 'Bad Request'});
     }
     else{
         try {
