@@ -1,8 +1,9 @@
 import express from 'express';
 import fs from 'fs';
 import winston from 'winston';
-import monteCarlo from '../modules/monteCarlo.js';
+import mvLinearRegression from '../modules/mvLinearRegression.js';
 import fileMap from '../modules/fileMap.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const gamesRouter = express.Router();
 
@@ -75,31 +76,27 @@ gamesRouter.get('/pointsStats/:teamname', async (req, res) => {
     }
 })
 
-gamesRouter.get('/monteCarlo/:team1/:team2/:numSims', async (req, res) => {
+gamesRouter.get('/mvLinearRegression/:team1/:team2', async (req, res) => {
     logger.info(`Get request for Monte Carlo Simulation: team1: ${req.params.team1} team2: ${req.params.team2} numSims: ${req.params.numSims}`);
     if (typeof(req?.params?.team1) !== 'string'
-    || typeof(req?.params?.team1) !== 'string'
-    || typeof(parseInt(req?.params?.numSims)) !== 'number') {
+    || typeof(req?.params?.team1) !== 'string') {
         res.status(400).json({error: 'Bad Request'})
     }
     else {
         try {
+            const data = await fs.promises.readFile('./data/out.json', 'utf8');
+            const gamesData = JSON.parse(data);
             const team1 = req.params.team1.toLowerCase()
             const team2 = req.params.team2.toLowerCase()
             const team1data = await fs.promises.readFile(fileMap[team1], 'utf8');
             const team2data = await fs.promises.readFile(fileMap[team2], 'utf8');
             const team1games = JSON.parse(team1data).rowSet
             const team2games = JSON.parse(team2data).rowSet
-            let team1points = []
-            let team2points = []
-            for (let game of team1games) {
-                team1points.push(game[28])
-            }
-            for (let game of team2games) {
-                team2points.push(game[28])
-            }
-            const numSims = parseInt(req.params.numSims)
-            res.status(200).json(monteCarlo(team1points, team2points, numSims))
+            const newSim = mvLinearRegression(team1games, team2games)
+            const result = {id:uuidv4(),[team1]:newSim.p0,[team2]:newSim.p1}
+            gamesData.games.push(result);
+            await fs.promises.writeFile('./data/out.json', JSON.stringify(gamesData, null, 4), 'utf8');
+            res.status(200).json(result)
         }
         catch (err) {
             res.status(500).json({ error: 'Internal Server Error' });
@@ -108,12 +105,11 @@ gamesRouter.get('/monteCarlo/:team1/:team2/:numSims', async (req, res) => {
 })
 
 gamesRouter.get('/all', async (req, res) => {
-    logger.info(`Get request for all games`)
+    logger.info(`Get request for all simulations`)
     try {
-        logger.info(`Get request for all games`);
-        const data = await fs.promises.readFile('./data/april2022.json', 'utf8');
-        let games = JSON.parse(data).games;
-        res.status(200).json(games)
+        const data = await fs.promises.readFile('./data/out.json', 'utf8');
+        const sims = JSON.parse(data).sims;
+        res.status(200).json(sims)
     }
     catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -121,18 +117,17 @@ gamesRouter.get('/all', async (req, res) => {
 })
 
 gamesRouter.get('/:id', async (req, res) => {
-    logger.info(`Get request for game with id: ${JSON.stringify(req.params.id)}`);
-    if (typeof(parseInt(req?.params?.id)) !== 'number') {
+    logger.info(`Get request for simulation with id: ${JSON.stringify(req.params.id)}`);
+    if (typeof(req?.params?.id) !== 'string') {
         res.status(400).json({error: 'Bad Request'})
     }
     else {
         try {
-            logger.info(`Get request for game with id: ${req.params.id}`);
-            const data = await fs.promises.readFile('./data/april2022.json', 'utf8');
-            let games = JSON.parse(data).games;
-            const id = parseInt(req.params.id)
-            games = games.filter(e => e.id === id)
-            res.status(200).json(games)
+            const data = await fs.promises.readFile('./data/out.json', 'utf8');
+            let sims = JSON.parse(data).sims;
+            const id = req.params.id
+            sims = sims.filter(e => e.id === id)
+            res.status(200).json(sims)
         }
         catch (err) {
             res.status(500).json({ error: 'Internal Server Error' });
