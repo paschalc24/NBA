@@ -3,7 +3,7 @@
 
 ## Overview
 
-This API allows you to perform various operations related to NBA simulations. It provides endpoints for retrieving simulation data, running simulations, updating simulation results, and deleting simulations. Simulations at the moment are simply key value pairs of team names and their predicted scores. These scores are reached through multivariate linear regression. This application currently uses 3PM, 3P%, FT%, DRB, and BL as independent variables and PTS as a dependent variable. 
+This API allows you to perform various operations related to NBA simulations. It provides endpoints for retrieving simulation data, running simulations, updating simulation results, and deleting simulations. Simulations at the moment are simply key value pairs of team names and their predicted scores. These scores are reached through multivariate linear regression. This application currently uses 3PM, 3P%, FT%, DRB, and BL as independent variables and PTS as a dependent variable. I used these specific parameters as they are specified in this PLOS journal as being the statistics that have the least consistency between regular and post-season competitive periods `https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273427#sec005`.
 
 ## To Get Started and Run Server
 
@@ -191,3 +191,4 @@ In case of errors, the API may return the following responses:
 ## Notes
 
 In the future, the factors used will be provided as optional parameters. This is the complete list of factors in the dataset:["WL", "MIN", "FGM", "FGA", "FG_PCT", "FG3M", "FG3A", "FG3_PCT", "FTM", "FTA", "FT_PCT", "OREB", "DREB", "REB", "AST", "TOV", "STL", "BLK", "BLKA", "PF", "PFD", "PTS", "PLUS_MINUS", "GP_RANK", "W_RANK", "L_RANK", "W_PCT_RANK", "MIN_RANK", "FGM_RANK", "FGA_RANK", "FG_PCT_RANK", "FG3M_RANK", "FG3A_RANK", "FG3_PCT_RANK", "FTM_RANK", "FTA_RANK", "FT_PCT_RANK", "OREB_RANK", "DREB_RANK", "REB_RANK", "AST_RANK", "TOV_RANK", "STL_RANK", "BLK_RANK", "BLKA_RANK", "PF_RANK", "PFD_RANK", "PTS_RANK", "PLUS_MINUS_RANK", "AVAILABLE_FLAG"] All data is pulled from `https://github.com/swar/nba_api`. Furthermore, after there is a reasonable data in the current season the data will dynamically be pulled from this season.
+
