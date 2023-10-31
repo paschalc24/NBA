@@ -238,6 +238,30 @@ In case of errors, the API may return the following responses:
 
 - All simulation data is stored in the 'out.json' file.
 
+## API Endpoint Tests
+
+These tests are designed to validate the functionality of the API's endpoints for a service that handles NBA game simulations. They verify that the HTTP methods GET, PUT, and DELETE are functioning as expected with different existing simulations.
+
+- **GET All Responding Correctly:** Checks if the API correctly responds to a GET request for all simulations. It verifies that the API returns a status code of 200 (OK) and the data in the response is an object.
+
+- **GET Simulation by ID Responding Correctly (Simulation Exists):** Tests the API's response to a GET request for a specific simulation by its ID when the simulation exists. It ensures that the API returns a status code of 200.
+
+- **GET Simulation by ID Responding Correctly (Simulation Does Not Exist):** Tests the API's response to a GET request for a specific simulation by its ID when the simulation does not exist. It verifies that the API returns a status code of 404 (Not Found).
+
+- **POST Responding Correctly:** Validates the API's handling of a POST request to create a new simulation. It checks if the API returns a status code of 200 and the response data is an object.
+
+- **POST Responding Correctly Without Incorrect Input:** Verifies the API's response to a POST request with incorrect input. It ensures that the API returns a status code of 500 (Internal Server Error) when the input is incorrect.
+
+- **PUT Responding Correctly (Simulation Exists):** Tests the API's response to a PUT request to update an existing simulation. It verifies that the API returns a status code of 200 and the response data is an object.
+
+- **PUT Responding Correctly (Simulation Does Not Exist):** Checks the API's response to a PUT request to update a simulation that does not exist. It ensures that the API returns a status code of 404 (Not Found).
+
+- **Delete Simulation Responding Correctly (Simulation Exists):** Validates the API's response to a DELETE request to remove an existing simulation. It ensures that the API returns a status code of 204 (No Content) when the simulation exists.
+
+- **Delete Simulation Responding Correctly (Simulation Does Not Exist):** Tests the API's response to a DELETE request to remove a simulation that does not exist. It verifies that the API returns a status code of 404 (Not Found).
+
+These tests are executed using `node --test` from the root folder.
+
 ## Note
 
 After there is a reasonable data in the current season the data will dynamically be pulled from this season. I also plan on adding an endpoint to run a similar prediction using Monte Carlo simulations.
