@@ -2,6 +2,9 @@ import MLR from "ml-regression-multivariate-linear";
 import parameterMap from "./parameterMap.js"
 
 export default function mvLinearRegression (team1games, team2games, query) {
+    if (Object.keys(query).length === 0) {
+        query = {"FG3M":true, "FG3_PCT":true, "FT_PCT":true, "DREB":true, "BLK":true}
+    }
     let team1b = [];
     let team2b = [];
     let team1A = [];
