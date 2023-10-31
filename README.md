@@ -241,3 +241,4 @@ In case of errors, the API may return the following responses:
 ## Note
 
 After there is a reasonable data in the current season the data will dynamically be pulled from this season. I also plan on adding an endpoint to run a similar prediction using Monte Carlo simulations.
+Advice is always appreciated, thank you 🙌🏼
