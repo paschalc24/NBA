@@ -56,7 +56,7 @@ simulationsRouter.get('/:id', async (req, res) => {
 })
 
 simulationsRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => {
-    logger.info(`Get request for mvLinearRegression: team1: ${req.params.team1} team2: ${req.params.team2}`);
+    logger.info(`Post request for mvLinearRegression: team1: ${req.params.team1} team2: ${req.params.team2}`);
     if (typeof(req?.params?.team1) !== 'string'
     || typeof(req?.params?.team1) !== 'string') {
         res.status(400).json({error: 'Bad Request'});
@@ -71,7 +71,7 @@ simulationsRouter.post('/mvLinearRegression/:team1/:team2', async (req, res) => 
             const team2data = await fs.promises.readFile(fileMap[team2], 'utf8');
             const team1games = JSON.parse(team1data).rowSet;
             const team2games = JSON.parse(team2data).rowSet;
-            const newSim = mvLinearRegression(team1games, team2games);
+            const newSim = mvLinearRegression(team1games, team2games, req.query);
             const now = new Date().toISOString();
             const result = {id:uuidv4(),created:now,[team1]:newSim.p0,[team2]:newSim.p1};
             simsData.sims.push(result);
